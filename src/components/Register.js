@@ -1,11 +1,10 @@
-import AuthBlank from './AuthBlank.js'
+import SignForm from './SignForm.js'
 
 function Register() {
   return (
-    <AuthBlank 
+    <SignForm 
       title={'Регистрация'}
-      buttonHolder={'Зарегистрироваться'}   
-      children={<p className="blank__question">Уже зарегистрированы?<a className="blank__link">Войти</a></p>}
+      buttonHolder={'Зарегистрироваться'}
     />
   );
 }

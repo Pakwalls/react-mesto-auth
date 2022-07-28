@@ -57,4 +57,10 @@
 @import url(./blocks/popup/__error/popup__error.css);
 @import url(./blocks/popup/__error/_visible/popup__error_visible.css);
 
+@import url(./blocks/sign-form/sign-form.css);
+@import url(./blocks/sign-form/__title/sign-form__title.css);
+@import url(./blocks/sign-form/__input/sign-form__input.css);
+@import url(./blocks/sign-form/__error/sign-form__error.css);
+@import url(./blocks/sign-form/__button/sign-form__button.css);
+
 @import url(./blocks/hover-animated/hover-animated.css);

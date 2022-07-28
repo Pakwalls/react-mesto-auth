@@ -1,10 +1,10 @@
-import AuthBlank from './AuthBlank.js'
+import SignForm from './SignForm.js'
 
 function Login() {
   return (
-    <AuthBlank 
+    <SignForm 
       title={'Вход'}
-      buttonHolder={'Войти'}   
+      buttonHolder={'Войти'}
     />
   );
 }

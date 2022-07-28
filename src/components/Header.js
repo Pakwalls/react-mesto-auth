@@ -4,7 +4,7 @@ function Header() {
   return (
     <header className="header">
       <a href="#">
-        <div src={headerLogo} alt="логотип страницы" className="header__logo" />
+        <img src={headerLogo} alt="логотип страницы" className="header__logo" />
       </a>
     </header>
   );

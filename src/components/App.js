@@ -2,13 +2,14 @@ import Header from './Header.js';
 import Footer from './Footer.js';
 import Main from './Main.js';
 import { useState, useEffect } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import ConfirmPopup from './ConfirmPopup.js';
 import ImagePopup from './ImagePopup.js';
-import api from '../utils/api.js'
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import api from '../utils/api.js';
+import Login from './Login.js';
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -120,6 +121,8 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header />
+
+        <Login />
 
         <Main
           cards={cards}
