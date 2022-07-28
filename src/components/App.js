@@ -10,6 +10,7 @@ import ConfirmPopup from './ConfirmPopup.js';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/api.js';
 import Login from './Login.js';
+import { Route, Switch } from 'react-router-dom';
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -121,21 +122,26 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header />
-
-        <Login />
-
-        <Main
-          cards={cards}
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-        />
-          
-        <Footer />
-
+        <Switch>
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+        
+          <Route path="/">
+            <Main
+              cards={cards}
+              onEditAvatar={handleEditAvatarClick}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
+              
+            <Footer />
+          </Route>
+        </Switch>
+        
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopup}
