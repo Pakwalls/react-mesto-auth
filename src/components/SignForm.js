@@ -4,7 +4,7 @@ function SignForm({title, buttonHolder, question}) {
       <h2 className="sign-form__title">{title}</h2>
       <input
         type="text"
-        className="sign-form__input"
+        className="input input_theme_night"
         id="email-field"
         name="name"
         placeholder="Email"
@@ -12,7 +12,7 @@ function SignForm({title, buttonHolder, question}) {
       <span className="sign-form__error" id="email-field-error"></span>
       <input
         type="password"
-        className="sign-form__input"
+        className="input input_theme_night"
         id="password-field"
         name="about"
         placeholder="Пароль"

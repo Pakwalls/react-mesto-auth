@@ -17,7 +17,7 @@ import ProtectedRoute from './ProtectedRoute.js';
 
 function App() {
   // -------------------------------------------------------------------------------------------------------------------------- переменная стейта авторизации
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
   // -------------------------------------------------------------------------------------------------------------------------- переменная стейта авторизации
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -28,7 +28,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({name:'', about:''});
   const [cards, setCards] = useState([]);
-  const [email, setEmail] = useState(isLoggedIn? "boooobooboobo@ya.ru": "");
+  const [email, setEmail] = useState(isLoggedIn? "boooobooboobo@ya.ru": ""); // вытягивать их АПИ
 
   const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || isImagePopupOpen || isInfoToolTipOpen
 

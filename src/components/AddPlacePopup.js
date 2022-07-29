@@ -37,7 +37,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         value={name}
         onChange={handleNameChange}
         type="text"
-        className="popup__input"
+        className="input input_theme_day"
         id="place-name"
         name="name"
         minLength="2"
@@ -49,7 +49,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         value={link}
         onChange={handleLinkChange}
         type="url"
-        className="popup__input"
+        className="input input_theme_day"
         id="place-link"
         name="link"
         placeholder="Ссылка на картинку"

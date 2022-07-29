@@ -43,7 +43,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
         value={name}
         onChange={handleNameChange}
         type="text"
-        className="popup__input"
+        className="input input_theme_day"
         id="name-field"
         name="name"
         minLength="2"
@@ -55,7 +55,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
         value={description}
         onChange={handleDescriptionChange}
         type="text"
-        className="popup__input"
+        className="input input_theme_day"
         id="about-field"
         name="about"
         minLength="2"
