@@ -2,7 +2,7 @@ import Header from './Header.js';
 import Footer from './Footer.js';
 import Main from './Main.js';
 import { useState, useEffect } from 'react';
-import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import api from '../utils/api.js';
 import EditProfilePopup from './EditProfilePopup.js';

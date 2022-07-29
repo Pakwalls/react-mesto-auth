@@ -1,6 +1,6 @@
 .header__container {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   gap: 24px;
   margin: 0 0 46px 0;
 }

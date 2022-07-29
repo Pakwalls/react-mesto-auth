@@ -12,14 +12,14 @@ function Header({isLoggedIn, email}) {
   
   return (
     <header className="header">
-      <a href="#">
+      <Link to="/">
         <img src={headerLogo} alt="логотип страницы" className="header__logo" />
-      </a>
+      </Link>
       <div className="header__container">
         <p className="header__email">{email}</p>
         {currentLocation === "/sign-in" && <Link to="sign-up" className="header__page-link hover-animated">Регистрация</Link>}
         {currentLocation === "/sign-up" && <Link to="sign-in" className="header__page-link hover-animated">Войти</Link>}
-        {isLoggedIn && <button onClick={handleLogOut} className="header__exit-btn">Выйти</button>}
+        {isLoggedIn && <button onClick={handleLogOut} className="header__exit-btn hover-animated">Выйти</button>}
       </div>
     </header>
   );

@@ -18,7 +18,7 @@ function SignForm({title, buttonHolder, question}) {
         placeholder="Пароль"
         required />
       <span className="sign-form__error" id="email-field-error"></span>
-      <button className="sign-form__button">{buttonHolder}</button>
+      <button className="sign-form__button hover-animated">{buttonHolder}</button>
       {question}
     </div>
   );
