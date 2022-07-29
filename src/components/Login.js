@@ -1,4 +1,4 @@
-import SignForm from './SignForm.js'
+import SignForm from './SignForm.js';
 
 function Login() {
   return (

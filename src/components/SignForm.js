@@ -1,4 +1,4 @@
-function SignForm({title, buttonHolder}) {
+function SignForm({title, buttonHolder, question}) {
   return (
     <div className="sign-form">
       <h2 className="sign-form__title">{title}</h2>
@@ -19,9 +19,8 @@ function SignForm({title, buttonHolder}) {
         required />
       <span className="sign-form__error" id="email-field-error"></span>
       <button className="sign-form__button">{buttonHolder}</button>
-      <p className="sign-form__question">Уже зарегистрированы? <a className="sign-form__link">Войти</a></p>
+      {question}
     </div>
-    
   );
 }
 

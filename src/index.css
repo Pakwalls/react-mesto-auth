@@ -35,6 +35,7 @@
 @import url(./blocks/article/__like-counter/article__like-counter.css);
 @import url(./blocks/article/__feedback/_active/article__feedback_active.css);
 @import url(./blocks/article/__del-btn/article__del-btn.css);
+@import url(./blocks/article/__del-btn/__del-btn_hidden/article__del-btn_hidden.css);
 
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);
@@ -62,5 +63,7 @@
 @import url(./blocks/sign-form/__input/sign-form__input.css);
 @import url(./blocks/sign-form/__error/sign-form__error.css);
 @import url(./blocks/sign-form/__button/sign-form__button.css);
+@import url(./blocks/sign-form/__question/sign-form__question.css);
+@import url(./blocks/sign-form/__link/sign-form__link.css);
 
 @import url(./blocks/hover-animated/hover-animated.css);

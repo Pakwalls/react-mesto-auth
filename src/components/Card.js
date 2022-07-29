@@ -51,7 +51,7 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
         type="button" 
         aria-label="delete-button" 
         name="article__del-btn" 
-        className={`${cardDeleteButtonClassName} "hover-animated"`}
+        className={`${cardDeleteButtonClassName} hover-animated`}
         onClick={handleDeleteClick}
       ></button>
     </li>
