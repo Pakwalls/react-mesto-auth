@@ -1,4 +1,4 @@
-function InfoTooltip({onClose, isConfirmed}) {
+function InfoTooltip({isOpen, onClose, isConfirmed}) {
   
   return (
     <div className={`popup popup_type_info-tip ${isOpen ? 'popup_opened' : ''}`}>
@@ -9,7 +9,9 @@ function InfoTooltip({onClose, isConfirmed}) {
           className="popup__closer hover-animated"
           onClick={onClose}
         ></button>
-        <div></div>
+          {isConfirmed?
+            <img src="#"/>:
+            <img src="#"/>}
         <h2>
           {isConfirmed? 
           "Вы успешно зарегистрировались!":

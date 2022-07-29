@@ -1,5 +1,6 @@
 import SignForm from './SignForm.js'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+
 
 function Register() {
   return (
@@ -11,4 +12,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default withRouter(Register);

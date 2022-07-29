@@ -1,4 +1,5 @@
 import SignForm from './SignForm.js';
+import { withRouter } from 'react-router-dom';
 
 function Login() {
   return (
@@ -9,4 +10,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default withRouter(Login);

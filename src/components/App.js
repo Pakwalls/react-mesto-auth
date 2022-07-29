@@ -2,7 +2,7 @@ import Header from './Header.js';
 import Footer from './Footer.js';
 import Main from './Main.js';
 import { useState, useEffect } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import api from '../utils/api.js';
 import EditProfilePopup from './EditProfilePopup.js';
@@ -12,23 +12,26 @@ import ConfirmPopup from './ConfirmPopup.js';
 import ImagePopup from './ImagePopup.js';
 import Login from './Login.js';
 import Register from './Register.js';
+import InfoTooltip from './InfoTooltip.js';
 import ProtectedRoute from './ProtectedRoute.js';
 
 function App() {
+  // -------------------------------------------------------------------------------------------------------------------------- переменная стейта авторизации
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  // -------------------------------------------------------------------------------------------------------------------------- переменная стейта авторизации
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({name:'', about:''});
   const [cards, setCards] = useState([]);
+  const [email, setEmail] = useState(isLoggedIn? "boooobooboobo@ya.ru": "");
 
-  // -------------------------------------------------------------------------------------------------------------------------- переменная стейта авторизации
-  const [loggedIn, setLoggedIn] = useState(true);
-  
-  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || isImagePopupOpen
-  
+  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || isImagePopupOpen || isInfoToolTipOpen
+
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
@@ -116,6 +119,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setSelectedCard({});
     setIsImagePopupOpen(false);
+    setIsInfoToolTipOpen(false);
   }
 
   function handleCardClick(card) {
@@ -126,7 +130,10 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
+        <Header 
+          isLoggedIn={isLoggedIn}
+          email={email}
+        />
         <Switch>
           <Route path="/sign-in">
             <Login
@@ -140,10 +147,18 @@ function App() {
             />
           </Route>
 
+          <Route path="/test">
+            <InfoTooltip 
+              isOpen={isInfoToolTipOpen}
+              onClose={closeAllPopup}
+              isConfirmed={true}
+            />
+          </Route>
+
           <ProtectedRoute 
-            path="/main"
+            path="/"
             component={Main}
-            loggedIn={loggedIn}
+            loggedIn={isLoggedIn}
             cards={cards}
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
@@ -153,9 +168,6 @@ function App() {
             onCardDelete={handleCardDelete}>
           </ProtectedRoute>
 
-          <Route exact path="/">
-            {!loggedIn? <Redirect to="/sign-in" />: <Redirect to="/main" />}
-          </Route>
         </Switch>
         <Footer />
         
@@ -190,4 +202,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);
