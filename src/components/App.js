@@ -127,6 +127,14 @@ function App() {
     setIsImagePopupOpen(true);
   }
 
+  function handleAuthorization() {
+    console.log("сработал handleAuthorization")
+  }
+
+  function handleRegistration() {
+    console.log("сработал handleRegistration")
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -137,25 +145,18 @@ function App() {
         <Switch>
           <Route path="/sign-in">
             <Login
-              // onLogin={handleAuthorization}
+              onLogin={handleAuthorization}
             />
           </Route>
 
           <Route path="/sign-up">
             <Register
-              // onRegister={handleRegistration}
-            />
-          </Route>
-
-          <Route path="/test">
-            <InfoTooltip 
-              isOpen={isInfoToolTipOpen}
-              onClose={closeAllPopup}
-              isConfirmed={true}
+              onRegister={handleRegistration}
             />
           </Route>
 
           <ProtectedRoute 
+            exact
             path="/"
             component={Main}
             loggedIn={isLoggedIn}
@@ -171,6 +172,12 @@ function App() {
         </Switch>
         <Footer />
         
+        <InfoTooltip 
+          isOpen={isInfoToolTipOpen}
+          onClose={closeAllPopup}
+          isConfirmed={true}
+        />
+
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopup}

@@ -59,6 +59,8 @@
 @import url(./blocks/popup/__figcaption/popup__figcaption.css);
 @import url(./blocks/popup/__error/popup__error.css);
 @import url(./blocks/popup/__error/_visible/popup__error_visible.css);
+@import url(./blocks/popup/__alert-img/popup__alert-img.css);
+@import url(./blocks/popup/__alert-message/popup__alert-message.css);
 
 @import url(./blocks/sign-form/sign-form.css);
 @import url(./blocks/sign-form/__title/sign-form__title.css);

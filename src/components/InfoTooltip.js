@@ -1,3 +1,6 @@
+import resolveImg from '../images/alert_img_resolve.svg'
+import rejectImg from '../images/alert_img_reject.svg';
+
 function InfoTooltip({isOpen, onClose, isConfirmed}) {
   
   return (
@@ -10,9 +13,9 @@ function InfoTooltip({isOpen, onClose, isConfirmed}) {
           onClick={onClose}
         ></button>
           {isConfirmed?
-            <img src="#"/>:
-            <img src="#"/>}
-        <h2>
+            <img className="popup__alert-img" src={resolveImg}/>:
+            <img className="popup__alert-img" src={rejectImg}/>}
+        <h2 className="popup__alert-message">
           {isConfirmed? 
           "Вы успешно зарегистрировались!":
           "Что-то пошло не так! Попробуйте ещё раз."
