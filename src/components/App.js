@@ -2,7 +2,7 @@ import Header from './Header.js';
 import Footer from './Footer.js';
 import Main from './Main.js';
 import { useState, useEffect } from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, withRouter } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import api from '../utils/api.js';
 import EditProfilePopup from './EditProfilePopup.js';
@@ -81,30 +81,26 @@ function App() {
     tokenCheck();
   },[])
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      history.push('/')
-    }
-  },[isLoggedIn, history])
 
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      return;
-    }
 
-    getUserData(jwt)
-      .then(({ email, password }) => {
+    if (jwt) {
+      getUserData(jwt)
+      .then(({ email }) => {
         setUserEmail(email);
         setIsLoggedIn(true);
+        history.push('/');
       })
+    } 
   }
 
   const handleAuthorization = (data) => {
     return authorize(data)
-      .then(({ email, password }) => {
-        setUserEmail(email);
+      .then((res) => {
+        localStorage.setItem('jwt', res.token);
         setIsLoggedIn(true);
+        history.push('/');
       })
       .catch((err) => console.log(err));
   }
@@ -251,4 +247,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);
