@@ -12,15 +12,39 @@ const headers = {
   'Content-Type': 'application/json'
 }
 
-export const register = ({ password, email }) => {
+export const register = ({ email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers,
     body: JSON.stringify(
       {
+      email,
       password,
-      email
       })
   })
   .then(res => checkResponse(res));
-}; 
+};
+
+export const authorize = ({ email, password }) => {
+  return fetch(`${BASE_URL}/signin`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(
+      {
+      email,
+      password
+      })
+  })
+  .then(res => checkResponse(res));
+};
+
+export const getUserData = ({token}) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      ...headers,
+      "Authorization" : `Bearer ${token}`
+    }
+  })
+  .then(res => checkResponse(res));
+};

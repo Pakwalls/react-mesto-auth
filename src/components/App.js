@@ -2,7 +2,7 @@ import Header from './Header.js';
 import Footer from './Footer.js';
 import Main from './Main.js';
 import { useState, useEffect } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import api from '../utils/api.js';
 import EditProfilePopup from './EditProfilePopup.js';
@@ -14,6 +14,7 @@ import Login from './Login.js';
 import Register from './Register.js';
 import InfoTooltip from './InfoTooltip.js';
 import ProtectedRoute from './ProtectedRoute.js';
+import auth from '../utils/auth.js';
 
 function App() {
   // -------------------------------------------------------------------------------------------------------------------------- переменная стейта авторизации
@@ -30,7 +31,12 @@ function App() {
   const [cards, setCards] = useState([]);
   const [email, setEmail] = useState(isLoggedIn? "boooobooboobo@ya.ru": ""); // вытягивать их АПИ
 
+  const history = useHistory();
   const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || isImagePopupOpen || isInfoToolTipOpen
+
+  const tokenCheck = () => {
+    
+  }
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -73,6 +79,12 @@ function App() {
     })
     .catch((err) => console.error(err))
   },[])
+
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     history.push('/')
+  //   }
+  // },[isLoggedIn])
 
   function handleUpdateUser(name, description) {
     api.patchUserInfo(name, description)
@@ -143,18 +155,6 @@ function App() {
           email={email}
         />
         <Switch>
-          <Route path="/sign-in">
-            <Login
-              onLogin={handleAuthorization}
-            />
-          </Route>
-
-          <Route path="/sign-up">
-            <Register
-              onRegister={handleRegistration}
-            />
-          </Route>
-
           <ProtectedRoute 
             exact
             path="/"
@@ -169,6 +169,17 @@ function App() {
             onCardDelete={handleCardDelete}>
           </ProtectedRoute>
 
+          <Route path="/sign-up">
+            <Register
+              onRegister={handleRegistration}
+            />
+          </Route>
+
+          <Route path="/sign-in">
+            <Login
+              onLogin={handleAuthorization}
+            />
+          </Route>
         </Switch>
         <Footer />
         
@@ -209,4 +220,4 @@ function App() {
   );
 }
 
-export default withRouter(App);
+export default App;
