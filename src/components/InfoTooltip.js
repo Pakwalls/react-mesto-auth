@@ -2,7 +2,7 @@ import resolveImg from '../images/alert_img_resolve.svg'
 import rejectImg from '../images/alert_img_reject.svg';
 
 function InfoTooltip({isOpen, onClose, isConfirmed}) {
-  
+
   return (
     <div className={`popup popup_type_info-tip ${isOpen ? 'popup_opened' : ''}`}>
       <div className="popup__container">

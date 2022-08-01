@@ -26,6 +26,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
   // -------------------------------------------------------------------------------------------------------------------------- стейты с объектами
   const [currentUser, setCurrentUser] = useState({name:'', about:''});
   const [cards, setCards] = useState([]);
@@ -98,19 +99,32 @@ function App() {
   const handleAuthorization = (data) => {
     return authorize(data)
       .then((res) => {
-        localStorage.setItem('jwt', res.token);
-        setIsLoggedIn(true);
-        history.push('/');
+          localStorage.setItem('jwt', res.token);
+          setIsLoggedIn(true);
+          history.push('/');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsInfoToolTipOpen(true);
+        setIsConfirmed(false);
+        console.log(err)
+      });
   }
 
   const handleRegistration = (data) => {
     return register(data)
-      .then(() => {
-        history.push('/sign-in');
+      .then((res) => {
+        if (res) {
+          setIsConfirmed(true);
+          setIsInfoToolTipOpen(true);
+          history.push('/sign-in');
+        } else {
+          setIsConfirmed(false);
+        }
       })
-      .catch((err) => console.log(err));
+      .catch(() => {
+        setIsConfirmed(false);
+        setIsInfoToolTipOpen(true);
+      });
   }
 
   const handleLogOut = () => {
@@ -213,7 +227,7 @@ function App() {
         <InfoTooltip 
           isOpen={isInfoToolTipOpen}
           onClose={closeAllPopup}
-          isConfirmed={true}
+          isConfirmed={isConfirmed}
         />
 
         <AddPlacePopup
