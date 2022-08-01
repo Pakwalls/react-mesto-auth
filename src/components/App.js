@@ -14,11 +14,11 @@ import Login from './Login.js';
 import Register from './Register.js';
 import InfoTooltip from './InfoTooltip.js';
 import ProtectedRoute from './ProtectedRoute.js';
-import auth from '../utils/auth.js';
+import { register, authorize, getUserData } from '../utils/auth.js';
 
 function App() {
   // -------------------------------------------------------------------------------------------------------------------------- переменная стейта авторизации
-  const [isLoggedIn, setLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // -------------------------------------------------------------------------------------------------------------------------- переменная стейта авторизации
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -29,14 +29,13 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({name:'', about:''});
   const [cards, setCards] = useState([]);
-  const [email, setEmail] = useState(isLoggedIn? "boooobooboobo@ya.ru": ""); // вытягивать их АПИ
-
+  const [userInfo, setUserInfo] = useState({
+    email: '',
+    password: '',
+  })
   const history = useHistory();
+  
   const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || isImagePopupOpen || isInfoToolTipOpen
-
-  const tokenCheck = () => {
-    
-  }
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -80,11 +79,53 @@ function App() {
     .catch((err) => console.error(err))
   },[])
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     history.push('/')
-  //   }
-  // },[isLoggedIn])
+  const tokenCheck = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      return;
+    }
+
+    getUserData(jwt)
+      .then(({ email, password }) => {
+        setUserInfo({ email, password});
+        setIsLoggedIn(true);
+      })
+  }
+
+  useEffect(() => {
+    tokenCheck();
+  },[])
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push('/')
+    }
+  },[isLoggedIn, history])
+
+  
+  const handleAuthorization = (data) => {
+    return authorize(data)
+      .then(({ email, password }) => {
+        console.log("авторизация вошла")
+        setUserInfo({ email, password });
+        setIsLoggedIn(true);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  const handleRegistration = (data) => {
+    return register(data)
+      .then(() => {
+        history.push('/sign-in');
+      })
+      .catch((err) => console.log(err));
+  }
+
+  const handleLogOut = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('jwt');
+    history.push('/sign-in');
+  }
 
   function handleUpdateUser(name, description) {
     api.patchUserInfo(name, description)
@@ -139,20 +180,13 @@ function App() {
     setIsImagePopupOpen(true);
   }
 
-  function handleAuthorization() {
-    console.log("сработал handleAuthorization")
-  }
-
-  function handleRegistration() {
-    console.log("сработал handleRegistration")
-  }
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header 
           isLoggedIn={isLoggedIn}
-          email={email}
+          email={userInfo.email}
+          onLogout={handleLogOut}
         />
         <Switch>
           <ProtectedRoute 

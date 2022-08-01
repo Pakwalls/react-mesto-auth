@@ -2,12 +2,12 @@ import { Link, useHistory } from 'react-router-dom';
 import headerLogo from '../images/header_logo.svg';
 
 
-function Header({isLoggedIn, email}) {
+function Header({isLoggedIn, email, onLogout}) {
   const history = useHistory();
   const currentLocation = history.location.pathname;
 
   function handleLogOut() {
-
+    onLogout();
   }
   
   return (

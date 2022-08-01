@@ -9,7 +9,7 @@ const checkResponse = (res) => {
 }
 
 const headers = {
-  'Content-Type': 'application/json'
+  "Content-Type": "application/json"
 }
 
 export const register = ({ email, password }) => {
@@ -22,7 +22,7 @@ export const register = ({ email, password }) => {
       password,
       })
   })
-  .then(res => checkResponse(res));
+  .then(res => console.log(res))//checkResponse(res))
 };
 
 export const authorize = ({ email, password }) => {
@@ -35,7 +35,7 @@ export const authorize = ({ email, password }) => {
       password
       })
   })
-  .then(res => checkResponse(res));
+  .then(res => checkResponse(res))
 };
 
 export const getUserData = ({token}) => {

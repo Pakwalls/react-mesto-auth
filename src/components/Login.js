@@ -23,7 +23,6 @@ function Login({ onLogin }) {
     if (!loginData.email || !loginData.password) {
       return;
     }
-
     onLogin(loginData)
   }
 
