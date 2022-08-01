@@ -76,33 +76,30 @@ function App() {
     })
     .catch((err) => console.error(err))
   },[])
-  
+
   useEffect(() => {
     tokenCheck();
-  },[])
-
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-
-  //   }
-  // });
-
+  }, [isLoggedIn])
+ 
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
-
+  
     if (jwt) {
       getUserData(jwt)
-      .then(({ email }) => {
-        setUserEmail(email);
+      .then((res) => {
+        console.log(123)
+        setUserEmail(res.data.email)
         setIsLoggedIn(true);
         history.push('/');
       })
+      .catch(err => console.log(err))
     } 
   }
 
   const handleAuthorization = (data) => {
     return authorize(data)
       .then((res) => {
+        console.log(res)
         localStorage.setItem('jwt', res.token);
         setIsLoggedIn(true);
         history.push('/');
@@ -119,8 +116,8 @@ function App() {
   }
 
   const handleLogOut = () => {
+    setUserEmail('');
     setIsLoggedIn(false);
-    setCurrentUser({});
     localStorage.removeItem('jwt');
     history.push('/sign-in');
   }
