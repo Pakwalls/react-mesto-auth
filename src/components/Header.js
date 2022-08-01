@@ -3,12 +3,7 @@ import headerLogo from '../images/header_logo.svg';
 
 
 function Header({isLoggedIn, email, onLogout}) {
-  const history = useHistory();
-  const currentLocation = history.location.pathname;
-
-  function handleLogOut() {
-    onLogout();
-  }
+  const currentLocation = useHistory().location.pathname;
   
   return (
     <header className="header">
@@ -19,7 +14,7 @@ function Header({isLoggedIn, email, onLogout}) {
         <p className="header__email">{email}</p>
         {currentLocation === "/sign-in" && <Link to="sign-up" className="header__page-link hover-animated">Регистрация</Link>}
         {currentLocation === "/sign-up" && <Link to="sign-in" className="header__page-link hover-animated">Войти</Link>}
-        {isLoggedIn && <button onClick={handleLogOut} className="header__exit-btn hover-animated">Выйти</button>}
+        {isLoggedIn && <button onClick={onLogout} className="header__exit-btn hover-animated">Выйти</button>}
       </div>
     </header>
   );

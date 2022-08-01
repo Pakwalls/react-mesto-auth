@@ -18,11 +18,11 @@ export const register = ({ email, password }) => {
     headers,
     body: JSON.stringify(
       {
-      email,
-      password,
+        password,
+        email,
       })
   })
-  .then(res => console.log(res))//checkResponse(res))
+  .then(res => checkResponse(res))
 };
 
 export const authorize = ({ email, password }) => {

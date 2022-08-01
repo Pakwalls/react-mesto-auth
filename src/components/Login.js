@@ -1,6 +1,6 @@
 import SignForm from './SignForm.js';
 import { useState } from 'react';
-//import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 function Login({ onLogin }) {
   const [loginData, setLoginData] = useState({
@@ -37,4 +37,4 @@ function Login({ onLogin }) {
   );
 }
 
-export default Login;
+export default withRouter(Login);

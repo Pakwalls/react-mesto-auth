@@ -36,4 +36,4 @@ function Register({ onRegister }) {
   );
 }
 
-export default Register;
+export default withRouter(Register);

@@ -29,10 +29,8 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({name:'', about:''});
   const [cards, setCards] = useState([]);
-  const [userInfo, setUserInfo] = useState({
-    email: '',
-    password: '',
-  })
+  const [userEmail, setUserEmail] = useState('');
+
   const history = useHistory();
   
   const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || isImagePopupOpen || isInfoToolTipOpen
@@ -78,20 +76,7 @@ function App() {
     })
     .catch((err) => console.error(err))
   },[])
-
-  const tokenCheck = () => {
-    const jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      return;
-    }
-
-    getUserData(jwt)
-      .then(({ email, password }) => {
-        setUserInfo({ email, password});
-        setIsLoggedIn(true);
-      })
-  }
-
+  
   useEffect(() => {
     tokenCheck();
   },[])
@@ -102,12 +87,23 @@ function App() {
     }
   },[isLoggedIn, history])
 
-  
+  const tokenCheck = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      return;
+    }
+
+    getUserData(jwt)
+      .then(({ email, password }) => {
+        setUserEmail(email);
+        setIsLoggedIn(true);
+      })
+  }
+
   const handleAuthorization = (data) => {
     return authorize(data)
       .then(({ email, password }) => {
-        console.log("авторизация вошла")
-        setUserInfo({ email, password });
+        setUserEmail(email);
         setIsLoggedIn(true);
       })
       .catch((err) => console.log(err));
@@ -123,6 +119,7 @@ function App() {
 
   const handleLogOut = () => {
     setIsLoggedIn(false);
+    setCurrentUser({});
     localStorage.removeItem('jwt');
     history.push('/sign-in');
   }
@@ -185,7 +182,7 @@ function App() {
       <div className="page">
         <Header 
           isLoggedIn={isLoggedIn}
-          email={userInfo.email}
+          email={userEmail}
           onLogout={handleLogOut}
         />
         <Switch>
