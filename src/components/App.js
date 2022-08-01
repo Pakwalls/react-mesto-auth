@@ -81,6 +81,11 @@ function App() {
     tokenCheck();
   },[])
 
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+
+  //   }
+  // });
 
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
