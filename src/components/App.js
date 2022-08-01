@@ -19,23 +19,23 @@ import { register, authorize, getUserData } from '../utils/auth.js';
 function App() {
   // -------------------------------------------------------------------------------------------------------------------------- переменная стейта авторизации
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // -------------------------------------------------------------------------------------------------------------------------- переменная стейта авторизации
+  // -------------------------------------------------------------------------------------------------------------------------- булевы стейты
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
-
+  // -------------------------------------------------------------------------------------------------------------------------- стейты с объектами
   const [currentUser, setCurrentUser] = useState({name:'', about:''});
   const [cards, setCards] = useState([]);
   const [userEmail, setUserEmail] = useState('');
-
+  // -------------------------------------------------------------------------------------------------------------------------- переменные
   const history = useHistory();
-  
   const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || isImagePopupOpen || isInfoToolTipOpen
+  // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  function handleCardLike(card) {
+  const handleCardLike = (card) => {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     api.changeLikeCardStatus(card._id, isLiked)
@@ -45,7 +45,7 @@ function App() {
       .catch((err) => console.error(err))
   }
 
-  function handleCardDelete(cardId) {
+  const handleCardDelete = (cardId) => {
     api.deleteCard(cardId)
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== cardId));
@@ -76,7 +76,7 @@ function App() {
     })
     .catch((err) => console.error(err))
   },[])
-
+  
   useEffect(() => {
     tokenCheck();
   }, [isLoggedIn])
@@ -87,7 +87,6 @@ function App() {
     if (jwt) {
       getUserData(jwt)
       .then((res) => {
-        console.log(123)
         setUserEmail(res.data.email)
         setIsLoggedIn(true);
         history.push('/');
@@ -99,7 +98,6 @@ function App() {
   const handleAuthorization = (data) => {
     return authorize(data)
       .then((res) => {
-        console.log(res)
         localStorage.setItem('jwt', res.token);
         setIsLoggedIn(true);
         history.push('/');
@@ -122,7 +120,7 @@ function App() {
     history.push('/sign-in');
   }
 
-  function handleUpdateUser(name, description) {
+  const handleUpdateUser = (name, description) => {
     api.patchUserInfo(name, description)
       .then((userData) => {
         setCurrentUser(userData);
@@ -131,7 +129,7 @@ function App() {
       .catch((err) => console.error(err))
   }
   
-  function handleUpdateAvatar(avatar){
+  const handleUpdateAvatar = (avatar) => {
     api.patchAvatar(avatar)
       .then((userData) => {
         setCurrentUser(userData);
@@ -140,7 +138,7 @@ function App() {
       .catch((err) => console.error(err))
   }
 
-  function handleAddPlaceSubmit(name, link) {
+  const handleAddPlaceSubmit = (name, link) => {
     api.postCard(name, link)
       .then((newCard) => {
         setCards([newCard, ...cards]); 
@@ -149,19 +147,19 @@ function App() {
       .catch((err) => console.error(err))
   }
 
-  function handleEditAvatarClick() {
+  const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
   };
 
-  function handleEditProfileClick() {
+  const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
   };
 
-  function handleAddPlaceClick() {
+  const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
   };
 
-  function closeAllPopup() {
+  const closeAllPopup = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -170,7 +168,7 @@ function App() {
     setIsInfoToolTipOpen(false);
   }
 
-  function handleCardClick(card) {
+  const handleCardClick = (card) => {
     setSelectedCard(card);
     setIsImagePopupOpen(true);
   }
