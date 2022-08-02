@@ -26,5 +26,5 @@ ___________________________________
 - Вывод отдельных классов по своим файлам
 
 
-### Ссылка на сайт:  [Git Pages](https://pakwalls.github.io/mesto/index.html)
+### Ссылка на сайт:  [Git Pages](https://pakwalls.github.io/react-mesto-auth/index.html)
 *спасибо, что заглянули*
