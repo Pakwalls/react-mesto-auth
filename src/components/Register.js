@@ -25,14 +25,14 @@ function Register({ onRegister }) {
   }
 
   return (
-    <SignForm 
+    <SignForm
       title={'Регистрация'}
       buttonHolder={'Зарегистрироваться'}
-      question={<p className="sign-form__question">Уже зарегистрированы? <Link to="/sign-in" className="sign-form__link hover-animated">Войти</Link></p>}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
-      data={registrationData}
-    />
+      data={registrationData}>
+      <p className="sign-form__question">Уже зарегистрированы? <Link to="/sign-in" className="sign-form__link hover-animated">Войти</Link></p>
+      </SignForm>
   );
 }
 

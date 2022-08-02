@@ -1,4 +1,4 @@
-function SignForm({title, buttonHolder, question, handleChange, handleSubmit, data}) {
+function SignForm({title, buttonHolder, handleChange, handleSubmit, data, children}) {
   return (
     <form className="sign-form" onSubmit={handleSubmit}>
       <h2 className="sign-form__title">{title}</h2>
@@ -23,7 +23,7 @@ function SignForm({title, buttonHolder, question, handleChange, handleSubmit, da
         required />
       <span className="sign-form__error" id="email-field-error"></span>
       <button className="sign-form__button hover-animated">{buttonHolder}</button>
-      {question}
+      {children}
     </form>
   );
 }

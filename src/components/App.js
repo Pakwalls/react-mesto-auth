@@ -69,14 +69,17 @@ function App() {
   }, [isOpen])
 
   useEffect(() => {
-    Promise.all([api.fetchCardsList(), api.fetchUserInfo()])
-    .then(([cards, user]) => {
-      setCards(cards);
+    if (isLoggedIn) {
+      Promise.all([api.fetchCardsList(), api.fetchUserInfo()])
+      .then(([cards, user]) => {
+        setCards(cards);
 
-      setCurrentUser(user)
-    })
-    .catch((err) => console.error(err))
-  },[])
+        setCurrentUser(user)
+      })
+      .catch((err) => console.error(err))
+    }
+    
+  },[isLoggedIn])
   
   useEffect(() => {
     tokenCheck();
@@ -99,6 +102,7 @@ function App() {
   const handleAuthorization = (data) => {
     return authorize(data)
       .then((res) => {
+          setUserEmail(data.email);
           localStorage.setItem('jwt', res.token);
           setIsLoggedIn(true);
           history.push('/');
